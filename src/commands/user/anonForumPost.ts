@@ -1,4 +1,4 @@
-import { CommandInteraction, AutocompleteInteraction } from "oceanic.js";
+import { CommandInteraction, AutocompleteInteraction, TextChannel } from "oceanic.js";
 import { ISlvtCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 import { initalizeUser } from "../../functions/initializeUser";
@@ -106,6 +106,13 @@ const anonForumPostCommand: ISlvtCommand = {
             await interaction.createMessage({ content: "You are banned from using this bot.", flags: 64 });
             return;
         }
+
+        const forum_channel = interaction.client.getChannel(channel_id)! as TextChannel;
+        if(!forum_channel.permissionsOf(interaction.client.user.id).has("VIEW_CHANNEL", "SEND_MESSAGES")) {
+            await interaction.createMessage({ content: "The bot cannot send messages in chosen forum.", flags: 64 });
+            return;
+        }
+
 
         const embed = createEmbed({
             description: content_option,
