@@ -48,7 +48,7 @@ export class slvtAlpha extends Client {
         super({
             auth: slvtAlpha.LogToken,
             gateway: {
-                intents: ["GUILDS", "GUILD_MESSAGES"]
+                intents: ["GUILDS"]
             }
         })
         this.events = new Map<string, ISlvtEvent>();
