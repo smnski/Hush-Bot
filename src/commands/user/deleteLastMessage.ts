@@ -15,7 +15,7 @@ const anonDeleteLastMessageCommand: ISlvtCommand = {
 
         const user_id = interaction.user.id!;
         const guild_id = interaction.guildID!;
-        let message_id: string;
+        let message_id: string, channel_id: string;
 
         try {
             const found_user = await Users.getUser(user_id);
@@ -30,14 +30,25 @@ const anonDeleteLastMessageCommand: ISlvtCommand = {
                 return;
             }
 
-            
+            message_id = found_guild.last_message_and_channel![0];
+            channel_id = found_guild.last_message_and_channel![1];
 
         } catch(error) {
             console.log(error);
             await interaction.createMessage({ content: "Something went wrong while interacting with the database.", flags: 64 });
             return;
         }
+
+        const channel = interaction.client.getChannel(channel_id) as TextChannel;
         
+        try {
+            await channel.deleteMessage(message_id);
+        } catch(e) {
+            await interaction.createMessage({ content: "Message doesn't exist.", flags: 64 });
+            return;
+        }
+        
+        await interaction.createMessage({ content: "Message deleted successfully.", flags: 64 });
     }
 }
 
