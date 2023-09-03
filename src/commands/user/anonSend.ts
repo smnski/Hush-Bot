@@ -62,10 +62,11 @@ const anonSendCommand: ISlvtCommand = {
         
         await interaction.createMessage({ content: "Your message was sent anonymously.", flags: 64 });
         const message = await interaction.client.rest.channels.createMessage(interaction.channelID, { embeds: [embed] });
-        
-        const field = ["last_message_id"];
-        const new_value = [message.id];
-        await Users.changeAnon(guild_data.guild_id, guild_data.anon_id, field, new_value);
+        const channel_id = message.channelID;
+
+        const field = ["last_message_and_channel"];
+        const new_value = [ [message.id, channel_id] ];
+        await Users.changeAnon(guild_id, guild_data.anon_id, field, new_value);
     }
 }
 

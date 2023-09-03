@@ -16,7 +16,7 @@ export interface IGuild {
     anon_color: number,
     anon_banned?: boolean // Set to false by schema if not provided.
     reroll_timestamp?: number // Set to 0 by schema if not provided.
-    last_message_id?: string // Set to "" by schema if not provided.
+    last_message_and_channel?: string[] // Set to [] by schema if not provided.
 }
 
 // User methods declarations.
@@ -52,7 +52,7 @@ const GuildSchema = new mongoose.Schema<IGuild>({
     anon_color: { type: Number, required: true },
     anon_banned: { type: Boolean, default: false },
     reroll_timestamp: { type: Number, default: 0 },
-    last_message_id: { type: String, default: "" }
+    last_message_and_channel: { type: [String], default: [] }
 });
 
 // User schema.
