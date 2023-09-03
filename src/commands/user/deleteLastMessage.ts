@@ -1,8 +1,6 @@
 import { CommandInteraction, TextChannel } from "oceanic.js";
 import { ISlvtCommand } from "../../bot";
-import { initalizeUser } from "../../functions/initializeUser";
-import { createEmbed } from "../../functions/embedCreator";
-import { Users, IGuild } from "../../databases/user/models";
+import { Users } from "../../databases/user/models";
 
 const anonDeleteLastMessageCommand: ISlvtCommand = {
     data: {
@@ -40,14 +38,18 @@ const anonDeleteLastMessageCommand: ISlvtCommand = {
         }
 
         const channel = interaction.client.getChannel(channel_id) as TextChannel;
-        
+        if(!channel) {
+            await interaction.createMessage({ content: "Channel, where the message was posted, was deleted.", flags: 64 });
+            return;
+        }
+
         try {
             await channel.deleteMessage(message_id);
         } catch(e) {
-            await interaction.createMessage({ content: "Message doesn't exist.", flags: 64 });
+            await interaction.createMessage({ content: "Message is already deleted.", flags: 64 });
             return;
         }
-        
+
         await interaction.createMessage({ content: "Message deleted successfully.", flags: 64 });
     }
 }

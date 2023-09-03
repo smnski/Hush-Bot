@@ -113,7 +113,6 @@ const anonForumPostCommand: ISlvtCommand = {
             return;
         }
 
-
         const embed = createEmbed({
             description: content_option,
             author: { name: anon_id },
