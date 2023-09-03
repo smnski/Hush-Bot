@@ -115,7 +115,7 @@ export class slvtAlpha extends Client {
     }
 
     public async connectToMongoose() {
-        const uri: string = "mongodb://127.0.0.1:27017/typeDB";
+        const uri: string = "mongodb://127.0.0.1:27017/HushDebugDB";
         await mongoose.connect(uri)
         .then( () => {
             console.log('Connected to mongoose.')

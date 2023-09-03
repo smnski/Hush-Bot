@@ -8,7 +8,7 @@ const readyEvent: ISlvtEvent = {
     },
     async execute(botInstance: slvtAlpha): Promise<void> {
         console.log(`Ready! Logged in as: ${botInstance.user.tag}`);
-        await botInstance.deployCommandsGlobally();
+        await botInstance.deployCommandsLocally();
         setupGuildTimestampsCleanup(botInstance);
     }
 }
