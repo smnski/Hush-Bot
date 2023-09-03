@@ -2,6 +2,7 @@ import { CommandInteraction, TextChannel } from "oceanic.js";
 import { ISlvtCommand } from "../../bot";
 import { initalizeUser } from "../../functions/initializeUser";
 import { createEmbed } from "../../functions/embedCreator";
+import { Users, IGuild } from "../../databases/user/models";
 
 const anonSendCommand: ISlvtCommand = {
     data: {
@@ -24,7 +25,7 @@ const anonSendCommand: ISlvtCommand = {
         const user_id = interaction.user.id!;
         const guild_id = interaction.guildID!;
 
-        let anon_id: string, anon_color: number, anon_banned: boolean = false;
+        let guild_data: IGuild;
 
         if(content_option.length > 4096) {
             await interaction.createMessage({ content: 
@@ -35,17 +36,14 @@ const anonSendCommand: ISlvtCommand = {
         }
 
         try {
-            const guild_data = await initalizeUser(user_id, guild_id);
-            anon_id = guild_data.anon_id;
-            anon_color = guild_data.anon_color;
-            anon_banned = guild_data.anon_banned!;
+            guild_data = await initalizeUser(user_id, guild_id);
         } catch(error) {
             console.log(error);
             await interaction.createMessage({ content: "Something went wrong while interacting with the database.", flags: 64 });
             return;
         }
 
-        if(anon_banned) {
+        if(guild_data.anon_banned) {
             await interaction.createMessage({ content: "You are banned from using this bot.", flags: 64 });
             return;
         }
@@ -58,12 +56,16 @@ const anonSendCommand: ISlvtCommand = {
 
         const embed = createEmbed({
             description: content_option,
-            author: { name: anon_id },
-            color: anon_color
+            author: { name: guild_data.anon_id },
+            color: guild_data.anon_color
         });
         
         await interaction.createMessage({ content: "Your message was sent anonymously.", flags: 64 });
-        await interaction.client.rest.channels.createMessage(interaction.channelID, { embeds: [embed] });
+        const message = await interaction.client.rest.channels.createMessage(interaction.channelID, { embeds: [embed] });
+        
+        const field = ["last_message_id"];
+        const new_value = [message.id];
+        await Users.changeAnon(guild_data.guild_id, guild_data.anon_id, field, new_value);
     }
 }
 
