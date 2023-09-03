@@ -32,9 +32,10 @@ export interface IUserModel extends Model<IUser, {}, IUserMethods> {
 
     createNewUser(user_id: string, guild_data: IGuild): Promise<void>;
     createAndFetchNewUser(user_id: string, guild_data: IGuild): Promise<mongoose.HydratedDocument<IUser, IUserMethods>>;
+    changeUser(user_id: string, guild_id: string, fields: string[], new_values: any[]): Promise<boolean>;
     getUser(user_id: string): Promise<mongoose.HydratedDocument<IUser, IUserMethods> | null>;
     doesUserExist(user_id: string): Promise<boolean>;
-
+    
     generateAnonID(guild_id: string, forced_category?: IColorData): Promise<[string, number]>;
     generateAnonIDStrict(guild_id: string, old_color_attr: string): Promise<[string, number]>;
     getAnon(guild_id: string, anon_id: string): Promise<mongoose.HydratedDocument<IUser, IUserMethods> | null>;

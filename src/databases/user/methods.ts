@@ -56,6 +56,19 @@ export const UserStatics = {
         const found_user = await this.findOne({ user_id: user_id });
         return found_user;
     },
+    //
+    async changeUser(this: IUserModel, user_id: string, guild_id: string, fields: string[], new_values: any[]) {
+    
+        const filter = { "user_id": user_id, "guilds.guild_id": guild_id };
+        const update: Record<string, any> = {};
+        fields.forEach((field, index) => {
+            update[`guilds.$.${field}`] = new_values[index];
+        });
+
+        const result = await this.updateOne(filter, { $set: update });
+
+        return result !== null;
+    },
     // Finds a user document. Returns true if it exists, false otherwise.
     async doesUserExist(this: IUserModel, user_id: string): Promise<boolean> {
         const found_user = await this.findOne({ user_id: user_id });
