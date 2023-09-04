@@ -50,7 +50,7 @@ const anonSendCommand: ISlvtCommand = {
 
         const command_channel = interaction.client.getChannel(interaction.channelID)! as TextChannel;
         if(!command_channel.permissionsOf(interaction.client.user.id).has("VIEW_CHANNEL", "SEND_MESSAGES")) {
-            await interaction.createMessage({ content: "The bot cannot send messages here.", flags: 64 });
+            await interaction.createMessage({ content: "The bot cannot access this channel.", flags: 64 });
             return;
         }
 

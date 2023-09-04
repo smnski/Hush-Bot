@@ -109,7 +109,7 @@ const anonForumPostCommand: ISlvtCommand = {
 
         const forum_channel = interaction.client.getChannel(channel_id)! as TextChannel;
         if(!forum_channel.permissionsOf(interaction.client.user.id).has("VIEW_CHANNEL", "SEND_MESSAGES")) {
-            await interaction.createMessage({ content: "The bot cannot send messages in chosen forum.", flags: 64 });
+            await interaction.createMessage({ content: "The bot cannot access chosen forum.", flags: 64 });
             return;
         }
 
