@@ -3,6 +3,7 @@ import { ISlvtCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 import { initalizeUser } from "../../functions/initializeUser";
 import { createEmbed } from "../../functions/embedCreator";
+import { Users } from "../../databases/user/models";
 
 interface IChannelData {
     name: string,
@@ -73,7 +74,7 @@ const anonForumPostCommand: ISlvtCommand = {
 
         const guild_id = interaction.guildID!;
         const user_id = interaction.user.id!;
-        const channel_id = interaction.data.options.getString("forum")!;
+        const forum_id = interaction.data.options.getString("forum")!;
         const title_option = interaction.data.options.getString("title")!;
         const content_option = interaction.data.options.getString("content")!;
         let anon_id: string, anon_color: number, anon_banned: boolean = false;
@@ -86,7 +87,7 @@ const anonForumPostCommand: ISlvtCommand = {
         }
 
         try {
-            if(!await Configs.arePostsAllowed(guild_id, channel_id)) {
+            if(!await Configs.arePostsAllowed(guild_id, forum_id)) {
                 await interaction.createMessage({ content: "Anonymous posts aren't allowed in this forum.\n" + 
                 "Choose one from the suggestions. If there are none, they aren't allowed on this server.", flags: 64 });
                 return;
@@ -107,7 +108,7 @@ const anonForumPostCommand: ISlvtCommand = {
             return;
         }
 
-        const forum_channel = interaction.client.getChannel(channel_id)! as TextChannel;
+        const forum_channel = interaction.client.getChannel(forum_id)! as TextChannel;
         if(!forum_channel.permissionsOf(interaction.client.user.id).has("VIEW_CHANNEL", "SEND_MESSAGES")) {
             await interaction.createMessage({ content: "The bot cannot access chosen forum.", flags: 64 });
             return;
@@ -120,8 +121,13 @@ const anonForumPostCommand: ISlvtCommand = {
         });
         
         await interaction.createMessage({ content: "Your post was created anonymously.", flags: 64 });
-        await interaction.client.rest.channels.startThreadInThreadOnlyChannl(channel_id, 
+        const thread = await interaction.client.rest.channels.startThreadInThreadOnlyChannl(forum_id, 
             { name: title_option, message: {embeds: [embed]} });
+
+        const message_id = thread.lastMessageID;
+        const field = ["last_message_and_channel"];
+        const new_value = [ [message_id, thread.id] ];
+        await Users.changeAnon(guild_id, anon_id, field, new_value);
     }
 }
 
