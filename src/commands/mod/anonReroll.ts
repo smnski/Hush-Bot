@@ -33,9 +33,9 @@ const modAnonRerollCommand: ISlvtCommand = {
         const fields = ["anon_id", "anon_color"];
         let anon_info: [string, number];
 
-        /*try {
+        try {
             if(color_option) {
-                const color_category = color_data.find(x => x.color_name === color_option)
+                const color_category = color_data.find(x => x.category_name === color_option)
                 if(!color_category) {
                     await interaction.createMessage({ content: "Color wasn't found.", flags: 64 });
                     return;
@@ -58,7 +58,6 @@ const modAnonRerollCommand: ISlvtCommand = {
             return;
         }
         await interaction.createMessage({ content: `${name_option}'s tag was successfully rerolled to: ${anon_info[0]}`, flags: 64});
-        */
     }
 }
 
