@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
 import { Model } from 'mongoose';
 import { UserStatics, UserMethods } from "./methods";
-import { IColorData } from "src/data/colors";
+import { IColorCategory } from "src/data/colors";
 
 // User interface.
 export interface IUser extends mongoose.Document {
@@ -37,7 +37,7 @@ export interface IUserModel extends Model<IUser, {}, IUserMethods> {
     getUser(user_id: string): Promise<mongoose.HydratedDocument<IUser, IUserMethods> | null>;
     doesUserExist(user_id: string): Promise<boolean>;
     
-    generateAnonID(guild_id: string, forced_category?: IColorData): Promise<[string, number]>;
+    generateAnonID(guild_id: string, forced_category?: IColorCategory): Promise<[string, number]>;
     generateAnonIDStrict(guild_id: string, old_color_attr: string): Promise<[string, number]>;
     getAnon(guild_id: string, anon_id: string): Promise<mongoose.HydratedDocument<IUser, IUserMethods> | null>;
     doesAnonExist(guild_id: string, anon_id: string): Promise<boolean>;

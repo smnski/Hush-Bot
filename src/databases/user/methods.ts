@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import { IColorData, color_data } from "../../data/colors";
+import { IColorCategory, color_data } from "../../data/colors";
 import { RNG } from "../../functions/rng";
 import { IUser, IUserMethods, IUserModel, IGuild } from "./models";
 
@@ -76,8 +76,8 @@ export const UserStatics = {
     },
     // Generates a unique anon_id for the given guild. Returns [anon_id, anon_color].
     // Rerolling into the same attribute possible.
-    async generateAnonID(this: IUserModel, guild_id: string, forced_category?: IColorData): Promise<[string, number]> {
-        let anon_id: string, anon_color: number, color_category: IColorData;
+    async generateAnonID(this: IUserModel, guild_id: string, forced_category?: IColorCategory): Promise<[string, number]> {
+        let anon_id: string, anon_color: number, color_category: IColorCategory;
 
         do {
             color_category = forced_category ? forced_category : color_data[RNG(0, color_data.length - 1)];
@@ -95,7 +95,7 @@ export const UserStatics = {
     // Generates a unique anon_id for the given guild. Returns [anon_id, anon_color].
     // Rerolling into the same attribute impossible.
     async generateAnonIDStrict(this: IUserModel, guild_id: string, old_color_attr: string): Promise<[string, number]> {
-        let anon_id: string, anon_color: number, color_category: IColorData, new_color_attr: string;
+        let anon_id: string, anon_color: number, color_category: IColorCategory, new_color_attr: string;
 
         do {
             color_category = color_data[RNG(0, color_data.length - 1)];
