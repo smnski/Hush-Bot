@@ -56,16 +56,16 @@ export const UserStatics = {
         const found_user = await this.findOne({ user_id: user_id });
         return found_user;
     },
-    //
+    // Finds and updates user document. Returns true if found, false otherwise.
     async changeUser(this: IUserModel, user_id: string, guild_id: string, fields: string[], new_values: any[]) {
-    
-        const filter = { "user_id": user_id, "guilds.guild_id": guild_id };
-        const update: Record<string, any> = {};
+        const update_obj: Record<string, any> = {};
         fields.forEach((field, index) => {
-            update[`guilds.$.${field}`] = new_values[index];
+            update_obj[`guilds.$.${field}`] = new_values[index];
         });
 
-        const result = await this.updateOne(filter, { $set: update });
+        const result = await this.findOneAndUpdate(
+            { "user_id": user_id, "guilds.guild_id": guild_id },
+            { $set: update_obj });
 
         return result !== null;
     },
@@ -129,9 +129,10 @@ export const UserStatics = {
             update_obj[`guilds.$.${field}`] = new_values[index];
         });
 
-        const updated_user = await this.findOneAndUpdate({ guilds: { $elemMatch: { guild_id: guild_id, anon_id: anon_id }}}, {
-            $set: update_obj
-        });
+        const updated_user = await this.findOneAndUpdate(
+            { guilds: { $elemMatch: { guild_id: guild_id, anon_id: anon_id }}}, 
+            { $set: update_obj }
+            );
 
         return updated_user !== null;
     },
