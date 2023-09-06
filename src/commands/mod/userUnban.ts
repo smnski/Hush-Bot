@@ -28,7 +28,7 @@ const modUserUnbanCommand: ISlvtCommand = {
         try {
             const changed_user = await Users.changeUser(user_id, guild_id, field, value);
             if(!changed_user) {
-                await interaction.createMessage({ content: "User wasn't found.", flags: 64});
+                await interaction.createMessage({ content: "User isn't banned and didn't use the bot yet.", flags: 64});
                 return;
             }
 
