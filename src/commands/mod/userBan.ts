@@ -1,6 +1,7 @@
 import { CommandInteraction } from "oceanic.js";
 import { ISlvtCommand } from "../../bot";
 import { Users } from "../../databases/user/models";
+import { initalizeUser } from "../../functions/initializeUser";
 
 const modUserBanCommand: ISlvtCommand = {
     data: {
@@ -26,12 +27,8 @@ const modUserBanCommand: ISlvtCommand = {
         const value = [true];
 
         try {
-            const changed_user = await Users.changeUser(user_id, guild_id, field, value);
-            if(!changed_user) {
-                await interaction.createMessage({ content: "User wasn't found.", flags: 64});
-                return;
-            }
-
+            await initalizeUser(user_id, guild_id);
+            await Users.changeUser(user_id, guild_id, field, value);
         } catch(error) {
             console.log(error);
             await interaction.createMessage({ content: "Something went wrong while interacting with the database.", flags: 64 });

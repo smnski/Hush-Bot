@@ -188,7 +188,7 @@ export const color_data: IColorCategory[] = [
         category_name: "light",
         colors: [
             {
-                name: "White",
+                name: "Snow",
                 code: 0xCBCBCB
             },
             {
@@ -213,7 +213,7 @@ export const color_data: IColorCategory[] = [
         category_name: "dark",
         colors: [
             {
-                name: "Black",
+                name: "Night",
                 code: 0x1B1B1B
             },
             {
