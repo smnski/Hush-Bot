@@ -56,7 +56,7 @@ export const UserStatics = {
         const found_user = await this.findOne({ user_id: user_id });
         return found_user;
     },
-    //
+    // Finds and updates user document. Returns true if found, false otherwise.
     async changeUser(this: IUserModel, user_id: string, guild_id: string, fields: string[], new_values: any[]) {
         const update_obj: Record<string, any> = {};
         fields.forEach((field, index) => {
