@@ -10,9 +10,10 @@ const modPingCommand: ISlvtCommand = {
         defaultMemberPermissions: "4",
         options: []
     },
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: CommandInteraction) {/*
         const available_colors = (color_data.map(x => x.color_name)).join(", ");
         await interaction.createMessage({ content: `Available colors:\n${available_colors}` , flags: 64 });
+        */
     }
 }
 
