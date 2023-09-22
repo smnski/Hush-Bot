@@ -10,7 +10,6 @@ const readyEvent: IHushEvent = {
         console.log(`Ready! Logged in as: ${botInstance.user.tag}`);
         await botInstance.deployCommandsLocally();
         setupGuildTimestampsCleanup(botInstance);
-        console.log(`The bot is currently in: ${botInstance.guilds.size} servers.`);
     }
 }
 
