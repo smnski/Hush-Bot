@@ -1,8 +1,8 @@
 import { CommandInteraction } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 
-const adminSetLogChannelCommand: ISlvtCommand = {
+const adminSetLogChannelCommand: IHushCommand = {
     data: {
         type: 1,
         name: "admin_set_log_channel",

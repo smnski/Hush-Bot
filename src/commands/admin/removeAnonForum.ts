@@ -1,5 +1,5 @@
 import { CommandInteraction, AutocompleteInteraction, Channel } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 
 interface IChannelData {
@@ -7,7 +7,7 @@ interface IChannelData {
     id: string
 }
 
-const adminRemoveAnonForumCommand: ISlvtCommand = {
+const adminRemoveAnonForumCommand: IHushCommand = {
     data: {
         type: 1,
         name: "admin_remove_anon_forum",

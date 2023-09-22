@@ -1,7 +1,7 @@
 import { InteractionTypes, CommandInteraction, AutocompleteInteraction } from "oceanic.js";
-import { slvtAlpha, ISlvtEvent, ISlvtCommand } from "../bot";
+import { Hush, IHushEvent, IHushCommand } from "../bot";
 
-function handleGuildCooldown(botInstance: slvtAlpha, interaction: CommandInteraction, command: ISlvtCommand): number {
+function handleGuildCooldown(botInstance: Hush, interaction: CommandInteraction, command: IHushCommand): number {
     const guild_id = interaction.guildID!;
     const command_name = command.data.name;
     const command_cd = command.guild_cooldown_short! * 1000;
@@ -22,12 +22,12 @@ function handleGuildCooldown(botInstance: slvtAlpha, interaction: CommandInterac
     return Math.ceil((timestamp - now) / 1000);
 }
 
-const interactionCreateEvent: ISlvtEvent = {
+const interactionCreateEvent: IHushEvent = {
     data: {
         name: "interactionCreate",
         once: false
     },
-    async execute(botInstance: slvtAlpha, interaction: CommandInteraction | AutocompleteInteraction): Promise<void> {
+    async execute(botInstance: Hush, interaction: CommandInteraction | AutocompleteInteraction): Promise<void> {
 
         switch(interaction.type) {
 

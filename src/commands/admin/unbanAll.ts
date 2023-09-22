@@ -1,8 +1,8 @@
 import { CommandInteraction } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Users } from "../../databases/user/models";
 
-const adminUnbanAllCommand: ISlvtCommand = {
+const adminUnbanAllCommand: IHushCommand = {
     guild_cooldown_short: 15 * 60,
     data: {
         type: 1,

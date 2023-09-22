@@ -1,9 +1,9 @@
 import { CommandInteraction } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Users } from "../../databases/user/models";
 import { color_data } from "../../data/colors";;
 
-const modAnonRerollCommand: ISlvtCommand = {
+const modAnonRerollCommand: IHushCommand = {
     data: {
         type: 1,
         name: "mod_reroll_anon",

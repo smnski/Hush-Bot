@@ -1,8 +1,8 @@
 import { CommandInteraction, TextChannel } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Users } from "../../databases/user/models";
 
-const anonDeleteLastMessageCommand: ISlvtCommand = {
+const anonDeleteLastMessageCommand: IHushCommand = {
     data: {
         type: 1,
         name: "anon_delete_last",

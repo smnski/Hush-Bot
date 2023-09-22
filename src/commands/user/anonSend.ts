@@ -1,10 +1,10 @@
 import { CommandInteraction, TextChannel } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { initalizeUser } from "../../functions/initializeUser";
 import { createEmbed } from "../../functions/embedCreator";
 import { Users, IGuild } from "../../databases/user/models";
 
-const anonSendCommand: ISlvtCommand = {
+const anonSendCommand: IHushCommand = {
     data: {
         type: 1,
         name: "anon_send",

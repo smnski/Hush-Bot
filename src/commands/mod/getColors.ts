@@ -1,8 +1,8 @@
 import { CommandInteraction } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { color_data } from "../../data/colors";
 
-const modPingCommand: ISlvtCommand = {
+const modPingCommand: IHushCommand = {
     data: {
         type: 1,
         name: "mod_get_colors",

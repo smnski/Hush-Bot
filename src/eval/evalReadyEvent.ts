@@ -1,8 +1,8 @@
 import { Client } from "oceanic.js";
-import { ISlvtEvent } from "../bot";
+import { IHushEvent } from "../bot";
 import { startTerminalInput } from "./evalTerminal";
 
-const evalReadyEvent: ISlvtEvent = {
+const evalReadyEvent: IHushEvent = {
     data: {
         name: "ready",
         once: true
