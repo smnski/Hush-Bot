@@ -1,6 +1,6 @@
-import { slvtAlpha } from "../bot";
+import { Hush } from "../bot";
 
-export function setupGuildTimestampsCleanup(botInstance: slvtAlpha) {
+export function setupGuildTimestampsCleanup(botInstance: Hush) {
 
     const thirty_mins = 30 * 60 * 1000;
 

@@ -1,8 +1,8 @@
 import { CommandInteraction } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Users } from "../../databases/user/models";
 
-const modAnonBanCommand: ISlvtCommand = {
+const modAnonBanCommand: IHushCommand = {
     data: {
         type: 1,
         name: "mod_ban_anon",

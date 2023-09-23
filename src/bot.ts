@@ -12,7 +12,7 @@ process.on("unhandledRejection", (reason: any) => {
     console.log("Unhandled Rejection at:", reason.stack || reason)
 });
 
-export interface ISlvtEvent {
+export interface IHushEvent {
     data: {
         name: keyof ClientEvents,
         once: boolean
@@ -22,7 +22,7 @@ export interface ISlvtEvent {
 
 // Short cooldowns kept on client and validated inside interactionCreate.
 // Long cooldowns kept in database and validated inside command code.
-export interface ISlvtCommand {
+export interface IHushCommand {
     data: {
         type: number,
         name: string,
@@ -36,23 +36,23 @@ export interface ISlvtCommand {
     execute: Function
 }
 
-export class slvtAlpha extends Client {
+export class Hush extends Client {
 
     static LogToken: string = `Bot ${TOKEN}`;
 
-    events: Map<string, ISlvtEvent>;
-    commands: Map<string, ISlvtCommand>;
+    events: Map<string, IHushEvent>;
+    commands: Map<string, IHushCommand>;
     guild_cooldowns: Map<string, Map<string, number>>;
 
     constructor() {
         super({
-            auth: slvtAlpha.LogToken,
+            auth: Hush.LogToken,
             gateway: {
                 intents: ["GUILDS"]
             }
         })
-        this.events = new Map<string, ISlvtEvent>();
-        this.commands = new Map<string, ISlvtCommand>();
+        this.events = new Map<string, IHushEvent>();
+        this.commands = new Map<string, IHushCommand>();
         this.guild_cooldowns = new Map<string, Map<string, number>>();
     }
 
@@ -62,7 +62,7 @@ export class slvtAlpha extends Client {
 
         for(const file of eventFiles) {
             const filePath = path.join(eventsPath, file);
-            const eventData: ISlvtEvent = require(filePath).default;
+            const eventData: IHushEvent = require(filePath).default;
 
             if(eventData.data.once) {
                 this.once(eventData.data.name, (...args: any[]) => eventData.execute(this, ...args));
@@ -86,7 +86,7 @@ export class slvtAlpha extends Client {
 
             for(const file of commandFiles) {
                 const filePath = path.join(dirPath, file);
-                const commandData: ISlvtCommand = require(filePath).default;
+                const commandData: IHushCommand = require(filePath).default;
 
                 this.commands.set(commandData.data.name, commandData);
                 console.log(`Loaded command: ${commandData.data.name}`);
@@ -126,7 +126,7 @@ export class slvtAlpha extends Client {
     }
 }
 
-const botInstance = new slvtAlpha();
+const botInstance = new Hush();
 botInstance.loadEvents();
 botInstance.loadCommands();
 botInstance.connect();

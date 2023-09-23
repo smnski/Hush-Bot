@@ -1,8 +1,8 @@
 import { CommandInteraction } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 
-const adminRemoveAnonForumCommand: ISlvtCommand = {
+const adminRemoveAnonForumCommand: IHushCommand = {
     data: {
         type: 1,
         name: "admin_add_anon_forum",

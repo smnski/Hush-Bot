@@ -1,16 +1,15 @@
-import { slvtAlpha, ISlvtEvent } from "../bot";
+import { Hush, IHushEvent } from "../bot";
 import { setupGuildTimestampsCleanup } from "../functions/cleanupGuildTimestamps";
 
-const readyEvent: ISlvtEvent = {
+const readyEvent: IHushEvent = {
     data: {
         name: "ready",
         once: true
     },
-    async execute(botInstance: slvtAlpha): Promise<void> {
+    async execute(botInstance: Hush): Promise<void> {
         console.log(`Ready! Logged in as: ${botInstance.user.tag}`);
         await botInstance.deployCommandsLocally();
         setupGuildTimestampsCleanup(botInstance);
-        console.log(`The bot is currently in: ${botInstance.guilds.size} servers.`);
     }
 }
 

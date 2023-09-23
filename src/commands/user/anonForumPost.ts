@@ -1,5 +1,5 @@
 import { CommandInteraction, AutocompleteInteraction, TextChannel } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 import { initalizeUser } from "../../functions/initializeUser";
 import { createEmbed } from "../../functions/embedCreator";
@@ -10,7 +10,7 @@ interface IChannelData {
     id: string
 }
 
-const anonForumPostCommand: ISlvtCommand = {
+const anonForumPostCommand: IHushCommand = {
     data: {
         type: 1,
         name: "anon_post",

@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import { IColorData, color_data } from "../../data/colors";
+import { IColorCategory, color_data } from "../../data/colors";
 import { RNG } from "../../functions/rng";
 import { IUser, IUserMethods, IUserModel, IGuild } from "./models";
 
@@ -76,18 +76,16 @@ export const UserStatics = {
     },
     // Generates a unique anon_id for the given guild. Returns [anon_id, anon_color].
     // Rerolling into the same attribute possible.
-    async generateAnonID(this: IUserModel, guild_id: string, forced_category?: IColorData): Promise<[string, number]> {
-        let anon_id: string, anon_color: number, color_category: IColorData;
+    async generateAnonID(this: IUserModel, guild_id: string, forced_category?: IColorCategory): Promise<[string, number]> {
+        let anon_id: string, anon_color: number, color_category: IColorCategory;
 
         do {
             color_category = forced_category ? forced_category : color_data[RNG(0, color_data.length - 1)];
+            const color = color_category.colors[RNG(0, color_category.colors.length - 1)];
 
-            anon_color = color_category.color_code;
             const tag = RNG(0, 9999).toString();
-            const color_attributes = color_category.attributes;
-            const color_attribute = color_attributes[RNG(0, color_attributes.length - 1)];
-
-            anon_id = color_attribute + " " + tag;
+            anon_color = color.code;
+            anon_id = color.name + " " + tag;
         } while(await this.findOne({ guilds: { $elemMatch: { guild_id: guild_id, anon_id: anon_id }}}))
         
         return [anon_id, anon_color];
@@ -95,16 +93,15 @@ export const UserStatics = {
     // Generates a unique anon_id for the given guild. Returns [anon_id, anon_color].
     // Rerolling into the same attribute impossible.
     async generateAnonIDStrict(this: IUserModel, guild_id: string, old_color_attr: string): Promise<[string, number]> {
-        let anon_id: string, anon_color: number, color_category: IColorData, new_color_attr: string;
+        let anon_id: string, anon_color: number, color_category: IColorCategory, new_color_attr: string;
 
         do {
             color_category = color_data[RNG(0, color_data.length - 1)];
+            const color = color_category.colors[RNG(0, color_category.colors.length - 1)];
 
-            anon_color = color_category.color_code;
             const tag = RNG(0, 9999).toString();
-            const color_attributes = color_category.attributes;
-            new_color_attr = color_attributes[RNG(0, color_attributes.length - 1)];
-
+            anon_color = color.code;
+            new_color_attr = color.name;
             anon_id = new_color_attr + " " + tag;
         } while(
             await this.findOne({ guilds: { $elemMatch: { guild_id: guild_id, anon_id: anon_id }}})

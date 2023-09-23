@@ -1,9 +1,9 @@
 import { CommandInteraction, TextChannel } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 import { Users } from "../../databases/user/models";
 
-const anonRerollOwnTagCommand: ISlvtCommand = {
+const anonRerollOwnTagCommand: IHushCommand = {
     user_cooldown_long: 7 * 24 * 60 * 60 * 1000, //one week
     data: {
         type: 1,

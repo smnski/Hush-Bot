@@ -1,9 +1,9 @@
 import { CommandInteraction } from "oceanic.js";
-import { ISlvtCommand } from "../../bot";
+import { IHushCommand } from "../../bot";
 import { Users } from "../../databases/user/models";
 import { color_data } from "../../data/colors";
 
-const modUserRerollCommand: ISlvtCommand = {
+const modUserRerollCommand: IHushCommand = {
     data: {
         type: 1,
         name: "mod_reroll_user",
@@ -35,7 +35,7 @@ const modUserRerollCommand: ISlvtCommand = {
 
         try {
             if(color_option) {
-                const color_category = color_data.find(x => x.color_name === color_option)
+                const color_category = color_data.find(x => x.category_name === color_option)
                 if(!color_category) {
                     await interaction.createMessage({ content: "Color wasn't found.", flags: 64 });
                     return;
