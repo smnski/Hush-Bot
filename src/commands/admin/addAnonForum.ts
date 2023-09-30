@@ -19,23 +19,22 @@ const adminRemoveAnonForumCommand: IHushCommand = {
     },
     async execute(interaction: CommandInteraction) {
         const guild_id = interaction.guildID!;
-        const forum_option = interaction.data.options.getChannel("forum")!;
-
-        if(forum_option.type !== 15) {
-            await interaction.createMessage({ content: "Chosen channel must be a forum.", flags: 64 });
-            return;
-        }
 
         const wrapper = new InteractionOptionsWrapper([interaction.data.options.getChannelOption("forum")!], interaction.data.resolved);
         const forum_channel = wrapper.getCompleteChannel<ForumChannel>("forum", true);
+
+        if(forum_channel.type !== 15) {
+            await interaction.createMessage({ content: "Chosen channel must be a forum.", flags: 64 });
+            return;
+        }
         
         if((forum_channel.flags & ChannelFlags.REQUIRE_TAG) !== 0) {
             await interaction.createMessage({ content: "This forum requires applying tags to posts. The bot cannot use it as an anonymous forum.", flags: 64 });
             return;
         }
         
-        const forum_id = forum_option.id;
-        const forum_name = forum_option.name;
+        const forum_id = forum_channel.id;
+        const forum_name = forum_channel.name;
 
         try {
             let guild_config = await Configs.getConfig(guild_id);
