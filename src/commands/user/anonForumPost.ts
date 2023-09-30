@@ -1,4 +1,4 @@
-import { CommandInteraction, AutocompleteInteraction, TextChannel } from "oceanic.js";
+import { CommandInteraction, AutocompleteInteraction, ForumChannel, ChannelFlags } from "oceanic.js";
 import { IHushCommand } from "../../bot";
 import { Configs } from "../../databases/config/models";
 import { initalizeUser } from "../../functions/initializeUser";
@@ -97,6 +97,7 @@ const anonForumPostCommand: IHushCommand = {
             anon_id = guild_data.anon_id;
             anon_color = guild_data.anon_color;
             anon_banned = guild_data.anon_banned!;
+
         } catch(error) {
             console.log(error);
             await interaction.createMessage({ content: "Something went wrong while interacting with the database.", flags: 64 });
@@ -108,9 +109,14 @@ const anonForumPostCommand: IHushCommand = {
             return;
         }
 
-        const forum_channel = interaction.client.getChannel(forum_id)! as TextChannel;
+        const forum_channel = interaction.client.getChannel(forum_id)! as ForumChannel;
         if(!forum_channel.permissionsOf(interaction.client.user.id).has("VIEW_CHANNEL", "SEND_MESSAGES")) {
             await interaction.createMessage({ content: "The bot cannot access chosen forum.", flags: 64 });
+            return;
+        }
+
+        if((forum_channel.flags & ChannelFlags.REQUIRE_TAG) !== 0) {
+            await interaction.createMessage({ content: "This forum is set up incorrectly, as it requires assiging a tag to posts. Please contact the server's administrator to fix this.", flags: 64 });
             return;
         }
 
