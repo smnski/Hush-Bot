@@ -127,7 +127,7 @@ const anonForumPostCommand: IHushCommand = {
         });
         
         await interaction.createMessage({ content: "Your post was created anonymously.", flags: 64 });
-        const thread = await interaction.client.rest.channels.startThreadInThreadOnlyChannl(forum_id, 
+        const thread = await interaction.client.rest.channels.startThreadInThreadOnlyChannel(forum_id, 
             { name: title_option, message: {embeds: [embed]} });
 
         const message_id = thread.lastMessageID;
