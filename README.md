@@ -1,11 +1,14 @@
-# Opis projektu
-Hush to bot na platformę Discord umożliwiający użytkownikom wysyłanie anonimowych wiadomości.
-Każdemu użytkownikowi przypisywany jest losowo wygenerowany identyfikator, dzięki czemu wiadomości pozostają anonimowe.
+# Hush Bot
+A TypeScript-based bot that integrates with the Discord API to enable anonymous messaging.
 
-Bot komunikuje się z API Discorda za pomocą funkcji napisanych w TypeScript.
+# Project Description
+Hush is a bot for the Discord platform that allows users to send anonymous messages.
+Each user is assigned a randomly generated identifier, ensuring message anonymity.
 
-# Wykorzystane technologie
-- TypeScript – Główny język programowania
-- MongoDB, Mongoose – Baza danych i ORM
-- Oceanic.js – Biblioteka do obsługi API Discorda
-- Node.js – Środowisko uruchomieniowe, na którym działa bot
+The bot interacts with the Discord API using functions written in TypeScript.
+
+# Technologies Used
+- TypeScript – Primary programming language
+- MongoDB, Mongoose – Database and ORM
+- Oceanic.js – Library for interacting with the Discord API
+- Node.js – Runtime environment for the bot
