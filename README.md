@@ -1,6 +1,3 @@
-# Hush Bot
-A TypeScript-based bot that integrates with the Discord API to enable anonymous messaging.
-
 # Project Description
 Hush is a bot for the Discord platform that allows users to send anonymous messages.
 Each user is assigned a randomly generated identifier, ensuring message anonymity.
